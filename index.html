@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Size Button</title>
+  <style>
+    :root {
+      --bg: #f2f4f8;
+      --ink: #1b2a4a;
+      --btn: #2f5bea;
+      --btn-text: #ffffff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #12151c;
+        --ink: #e6e9f2;
+        --btn: #5b82ff;
+        --btn-text: #0c1020;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    #size-btn {
+      font: inherit;
+      font-weight: 600;
+      color: var(--btn-text);
+      background: var(--btn);
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      padding: 0.8em 1.6em;
+      font-size: 1.25rem;
+      transition: font-size 0.2s ease, transform 0.1s ease;
+    }
+    #size-btn:active { transform: scale(0.96); }
+    #size-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+    #label { margin: 0; font-size: 0.95rem; opacity: 0.7; }
+    @media (prefers-reduced-motion: reduce) {
+      #size-btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <button id="size-btn" type="button">Press me</button>
+  <p id="label">Size: 1</p>
+
+  <script>
+    // Each press moves to the next size, then loops back to the start.
+    const sizes = [1.25, 1.75, 2.5, 3.5, 1]; // rem
+    let step = 0;
+    const btn = document.getElementById("size-btn");
+    const label = document.getElementById("label");
+
+    btn.addEventListener("click", () => {
+      step = (step + 1) % sizes.length;
+      btn.style.fontSize = sizes[step] + "rem";
+      label.textContent = "Size: " + (step + 1);
+    });
+  </script>
+</body>
+</html>
